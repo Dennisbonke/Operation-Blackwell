@@ -9,6 +9,13 @@ namespace OperationBlackwell.Core {
 			HALF,
 			FULL,
 		}
+
+		public enum NodeSprite {
+            NONE,
+            GROUND,
+            PATH,
+            DIRT,
+        }
 		// Holds the amount of cover this tile gives.
 		public CoverStatus cover {get; private set;}
 		// Holds if the tile can be walked over.
@@ -18,6 +25,7 @@ namespace OperationBlackwell.Core {
 		public Vector3 worldPosition {get; private set;}
 		public int gridX {get; private set;}
 		public int gridY {get; private set;}
+		private NodeSprite nodeSprite_;
 
 		private Grid<Node> grid_;
 		// public int gCost;
@@ -40,5 +48,18 @@ namespace OperationBlackwell.Core {
 			this.shootable = shootable;
 			this.cover = cover;
 		}
+
+		public void SetNodeSprite(NodeSprite nodeSprite) {
+            this.nodeSprite_ = nodeSprite;
+            // grid_.TriggerGridObjectChanged(gridX, gridY);
+        }
+
+        public NodeSprite GetNodeSprite() {
+            return nodeSprite_;
+        }
+
+        public override string ToString() {
+            return nodeSprite_.ToString();
+        }
 	}
 }

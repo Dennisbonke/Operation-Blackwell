@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace OperationBlackwell.Core {
 	public class Grid<TGridObject> {
+
+		public event System.EventHandler<OnGridObjectChangedEventArgs> OnGridObjectChanged;
+		public class OnGridObjectChangedEventArgs : System.EventArgs {
+			public int x;
+			public int y;
+		}
 		private const bool DebugGrid = false;
 
 		public int gridSizeX {get; private set;}
@@ -37,7 +43,7 @@ namespace OperationBlackwell.Core {
 
 
 		// CodeMonkey code, but slightly modified for our use case.
-		private Vector3 GetWorldPosition(int x, int z) {
+		public Vector3 GetWorldPosition(int x, int z) {
 			return new Vector3(x, 0, z) * cellSize + originPosition_;
 		}
 
@@ -98,6 +104,23 @@ namespace OperationBlackwell.Core {
 			}
 			x = Mathf.FloorToInt((worldPosition - originPosition_).x / cellSize);
 			z = Mathf.FloorToInt((worldPosition - originPosition_).z / cellSize);
+		}
+
+		public void TriggerGridObjectChanged(int x, int y) {
+			if(OnGridObjectChanged != null) {
+				OnGridObjectChanged(this, new OnGridObjectChangedEventArgs { x = x, y = y });
+			}
+		}
+
+		public void SetNodeSprite(Vector3 worldPosition, Node.NodeSprite nodeSprite) {
+			TGridObject thing = NodeFromWorldPoint(worldPosition);
+			if(thing is Node) {
+				Node node = (Node)System.Convert.ChangeType(thing, typeof(Node));
+				if(node != null) {
+					node.SetNodeSprite(nodeSprite);
+					this.TriggerGridObjectChanged(node.gridX, node.gridY);
+				}
+			}
 		}
 	}
 }

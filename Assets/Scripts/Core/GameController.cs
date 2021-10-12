@@ -15,14 +15,19 @@ namespace OperationBlackwell.Core {
 		public event MoveEvent Moved;
 
 		private Grid<Node> grid_;
+
+		[SerializeField] private NodeVisual nodeVisual_;
+		private Node.NodeSprite nodeSprite_;
 		private void Start() {
 			grid_ = new Grid<Node>((int)gridWorldSize_.x, (int)gridWorldSize_.z, nodeRadius_, new Vector3(0, 0, 0), 
 				(Grid<Node> g, Vector3 worldPos, int x, int z) => new Node(worldPos, x, z, g, true, true, Node.CoverStatus.NONE));
-			Node unwalkableNode = grid_.NodeFromWorldPoint(new Vector3(0, 0, 2));
-			unwalkableNode.walkable = false;
+			nodeVisual_.SetGrid(grid_);
+			// Node unwalkableNode = grid_.NodeFromWorldPoint(new Vector3(0, 0, 2));
+			// unwalkableNode.walkable = false;
 		}
 
 		private void Update() {
+			// Movement code.
 			if(Input.GetMouseButtonDown(0)) {
 				Vector3 gridClicked = Utils.GetMouseWorldPosition3d();
 				if(gridClicked == Vector3.zero) {
@@ -56,6 +61,33 @@ namespace OperationBlackwell.Core {
 						}
 					}
 				}
+			}
+			// End movement code.
+			// Tilemap code, rightclick please!
+			if (Input.GetKeyDown(KeyCode.T)) {
+				nodeSprite_ = Node.NodeSprite.NONE;
+				Debug.Log("T pressed");
+				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
+			}
+			if (Input.GetKeyDown(KeyCode.Y)) {
+				nodeSprite_ = Node.NodeSprite.GROUND;
+				Debug.Log("Y pressed");
+				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
+			}
+			if (Input.GetKeyDown(KeyCode.U)) {
+				nodeSprite_ = Node.NodeSprite.PATH;
+				Debug.Log("U pressed");
+				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
+			}
+			if (Input.GetKeyDown(KeyCode.I)) {
+				nodeSprite_ = Node.NodeSprite.DIRT;
+				Debug.Log("I pressed");
+				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
+			}
+			if(Input.GetMouseButtonDown(1)) {
+				Debug.Log("right click!");
+				Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition3d();
+				grid_.SetNodeSprite(mouseWorldPosition, nodeSprite_);
 			}
 		}
 
