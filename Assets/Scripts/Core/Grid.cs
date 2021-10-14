@@ -106,16 +106,5 @@ namespace OperationBlackwell.Core {
 				OnGridObjectChanged(this, new OnGridObjectChangedEventArgs { x = x, y = y });
 			}
 		}
-
-		public void SetNodeSprite(Vector3 worldPosition, Node.NodeSprite nodeSprite) {
-			TGridObject thing = NodeFromWorldPoint(worldPosition);
-			if(thing is Node) {
-				Node node = (Node)System.Convert.ChangeType(thing, typeof(Node));
-				if(node != null) {
-					node.SetNodeSprite(nodeSprite);
-					this.TriggerGridObjectChanged(node.gridX, node.gridY);
-				}
-			}
-		}
 	}
 }

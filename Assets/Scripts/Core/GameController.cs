@@ -86,10 +86,10 @@ namespace OperationBlackwell.Core {
 				nodeSprite_ = Node.NodeSprite.SAND;
 			}
 			if(Input.GetMouseButtonDown(1)) {
-				int clickedX, clickedZ;
 				Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition3d();
-				grid_.GetXZ(mouseWorldPosition, out clickedX, out clickedZ);
-				grid_.SetNodeSprite(mouseWorldPosition, nodeSprite_);
+				Node node = grid_.NodeFromWorldPoint(mouseWorldPosition);
+				node.SetNodeSprite(nodeSprite_);
+				grid_.TriggerGridObjectChanged(node.gridX, node.gridY);
 			}
 		}
 
