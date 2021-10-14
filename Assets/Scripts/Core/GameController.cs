@@ -29,6 +29,7 @@ namespace OperationBlackwell.Core {
 		private void Update() {
 			HandleMovement();
 			HandlePainting();
+			HandleSaveLoad();
 		}
 
 		private void HandleMovement() {
@@ -70,19 +71,19 @@ namespace OperationBlackwell.Core {
 
 		private void HandlePainting() {
 			// Tilemap code, rightclick please!
-			if (Input.GetKeyDown(KeyCode.T)) {
+			if(Input.GetKeyDown(KeyCode.T)) {
 				nodeSprite_ = Node.NodeSprite.NONE;
 			}
-			if (Input.GetKeyDown(KeyCode.Y)) {
+			if(Input.GetKeyDown(KeyCode.Y)) {
 				nodeSprite_ = Node.NodeSprite.GROUND;
 			}
-			if (Input.GetKeyDown(KeyCode.U)) {
+			if(Input.GetKeyDown(KeyCode.U)) {
 				nodeSprite_ = Node.NodeSprite.PATH;
 			}
-			if (Input.GetKeyDown(KeyCode.I)) {
+			if(Input.GetKeyDown(KeyCode.I)) {
 				nodeSprite_ = Node.NodeSprite.DIRT;
 			}
-			if (Input.GetKeyDown(KeyCode.O)) {
+			if(Input.GetKeyDown(KeyCode.O)) {
 				nodeSprite_ = Node.NodeSprite.SAND;
 			}
 			if(Input.GetMouseButtonDown(1)) {
@@ -90,6 +91,15 @@ namespace OperationBlackwell.Core {
 				Node node = grid_.NodeFromWorldPoint(mouseWorldPosition);
 				node.SetNodeSprite(nodeSprite_);
 				grid_.TriggerGridObjectChanged(node.gridX, node.gridY);
+			}
+		}
+
+		private void HandleSaveLoad() {
+			if(Input.GetKeyDown(KeyCode.P)) {
+				tilemap.Save();
+			}
+			if(Input.GetKeyDown(KeyCode.L)) {
+				tilemap.Load();
 			}
 		}
 
