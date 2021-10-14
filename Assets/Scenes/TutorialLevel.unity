@@ -634,8 +634,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeSpriteUVArray_:
   - nodeSprite: 1
+    uv00Pixels: {x: 0, y: 0}
+    uv11Pixels: {x: 64, y: 64}
+  - nodeSprite: 3
     uv00Pixels: {x: 64, y: 0}
     uv11Pixels: {x: 128, y: 64}
+  - nodeSprite: 4
+    uv00Pixels: {x: 128, y: 0}
+    uv11Pixels: {x: 192, y: 64}
   - nodeSprite: 2
     uv00Pixels: {x: 192, y: 0}
     uv11Pixels: {x: 256, y: 64}

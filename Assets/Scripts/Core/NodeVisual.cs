@@ -67,7 +67,7 @@ namespace OperationBlackwell.Core {
 			for(int x = 0; x < grid_.gridSizeX; x++) {
 				for(int y = 0; y < grid_.gridSizeY; y++) {
 					int index = x * grid_.gridSizeY + y;
-					Vector3 quadSize = new Vector3(1, 1) * grid_.cellSize;
+					Vector3 quadSize = new Vector3(1, 0, 1) * grid_.cellSize;
 
 					Node node;
 					Vector3 worldPosition = grid_.GetWorldPosition(x, y);
@@ -83,7 +83,7 @@ namespace OperationBlackwell.Core {
 						gridUV00 = uvCoords.uv00;
 						gridUV11 = uvCoords.uv11;
 					}
-					Utils.AddToMeshArrays(vertices, uv, triangles, index, grid_.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, gridUV00, gridUV11);
+					Utils.AddToMeshArrays(vertices, uv, triangles, index, worldPosition + quadSize * .5f, 0f, quadSize, gridUV00, gridUV11);
 				}
 			}
 

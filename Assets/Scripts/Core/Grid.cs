@@ -82,15 +82,10 @@ namespace OperationBlackwell.Core {
 		}
 
 		public TGridObject NodeFromWorldPoint(Vector3 worldPosition) {
-			float percentX = (worldPosition.x - .5f) / gridSizeX;
-			float percentY = (worldPosition.z - .5f) / gridSizeY;
-			percentX = Mathf.Clamp01(percentX);
-			percentY = Mathf.Clamp01(percentY);
-
-			int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
-			int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+			int x, y;
+			GetXZ(worldPosition, out x, out y);
 			if(DebugGrid) {
-				Debug.Log("x: " + x + ", y: " + y);
+				Debug.Log("grabing node from x: " + x + ", y: " + y);
 			}
 
 			return gridArray_[x, y];

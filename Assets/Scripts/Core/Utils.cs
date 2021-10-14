@@ -80,9 +80,9 @@ namespace OperationBlackwell.Core {
 
 			bool skewed = baseSize.x != baseSize.y;
 			if(skewed) {
-				vertices[vIndex0] = pos + GetQuaternionEuler(rot) * new Vector3(-baseSize.x, baseSize.y);
-				vertices[vIndex1] = pos + GetQuaternionEuler(rot) * new Vector3(-baseSize.x, -baseSize.y);
-				vertices[vIndex2] = pos + GetQuaternionEuler(rot) * new Vector3(baseSize.x, -baseSize.y);
+				vertices[vIndex0] = pos + GetQuaternionEuler(rot) * new Vector3(-baseSize.x, 0, baseSize.z);
+				vertices[vIndex1] = pos + GetQuaternionEuler(rot) * new Vector3(-baseSize.x, 0, -baseSize.z);
+				vertices[vIndex2] = pos + GetQuaternionEuler(rot) * new Vector3(baseSize.x, 0, -baseSize.z);
 				vertices[vIndex3] = pos + GetQuaternionEuler(rot) * baseSize;
 			} else {
 				vertices[vIndex0] = pos + GetQuaternionEuler(rot - 270) * baseSize;

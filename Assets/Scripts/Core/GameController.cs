@@ -27,7 +27,11 @@ namespace OperationBlackwell.Core {
 		}
 
 		private void Update() {
-			// Movement code.
+			HandleMovement();
+			HandlePainting();
+		}
+
+		private void HandleMovement() {
 			if(Input.GetMouseButtonDown(0)) {
 				Vector3 gridClicked = Utils.GetMouseWorldPosition3d();
 				if(gridClicked == Vector3.zero) {
@@ -62,31 +66,29 @@ namespace OperationBlackwell.Core {
 					}
 				}
 			}
-			// End movement code.
+		}
+
+		private void HandlePainting() {
 			// Tilemap code, rightclick please!
 			if (Input.GetKeyDown(KeyCode.T)) {
 				nodeSprite_ = Node.NodeSprite.NONE;
-				Debug.Log("T pressed");
-				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
 			}
 			if (Input.GetKeyDown(KeyCode.Y)) {
 				nodeSprite_ = Node.NodeSprite.GROUND;
-				Debug.Log("Y pressed");
-				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
 			}
 			if (Input.GetKeyDown(KeyCode.U)) {
 				nodeSprite_ = Node.NodeSprite.PATH;
-				Debug.Log("U pressed");
-				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
 			}
 			if (Input.GetKeyDown(KeyCode.I)) {
 				nodeSprite_ = Node.NodeSprite.DIRT;
-				Debug.Log("I pressed");
-				// CMDebug.TextPopupMouse(nodeSprite_.ToString());
+			}
+			if (Input.GetKeyDown(KeyCode.O)) {
+				nodeSprite_ = Node.NodeSprite.SAND;
 			}
 			if(Input.GetMouseButtonDown(1)) {
-				Debug.Log("right click!");
+				int clickedX, clickedZ;
 				Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition3d();
+				grid_.GetXZ(mouseWorldPosition, out clickedX, out clickedZ);
 				grid_.SetNodeSprite(mouseWorldPosition, nodeSprite_);
 			}
 		}
